@@ -317,7 +317,6 @@ namespace Nichicon_PrintLabel
                             Code_productcustomer = txtcodecustomer.Text
                         };
                         NichiconRepository.SaveHistoryOfSerial1(item_serial1, histories);
-
                     }
                     else
                     {
