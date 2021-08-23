@@ -296,7 +296,6 @@ namespace Nichicon_PrintLabel
                     File.Create(fileName).Dispose();
                 }
                 // Logs
-                
                 try
                 {
                     dtgvResult.Columns.Remove("ID");
