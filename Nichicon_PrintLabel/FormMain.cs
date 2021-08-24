@@ -154,38 +154,45 @@ namespace Nichicon_PrintLabel
         {
             Connect();
             adapter = new SqlDataAdapter("Select * from Nichicon_model where Status='True'", connect);
-            dttable.Rows.Add();
-            dttable.AcceptChanges();
             adapter.Fill(dttable);
             cboModels.DataSource = dttable;
             cboModels.DisplayMember = "Model_Name";
             cboModels.ValueMember = "ID";
             cboYear.Text = DateTime.Now.Year.ToString();
+            cbbDay.Text = DateTime.Now.Day.ToString();
+            cboModels.SelectedIndex = cboModels.Items.IndexOf(1);
         }
-
+        DataContext db = new DataContext();
         private void cboModels_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             string selectcbb = null;
-            selectcbb = cboModels.SelectedIndex.ToString();
-            if (cboModels.SelectedIndex > 0)
+            if (cboModels.SelectedIndex >=0)
             {
+                
                 selectcbb = cboModels.SelectedValue.ToString();
-                Connect();
-                command = new SqlCommand("Select * from Nichicon_model where ID='" + selectcbb + "'", connect);
-                adapter_model = new SqlDataAdapter(command);
-                dttable_model = new DataTable();
-                adapter_model.Fill(dttable_model);
-                txtProduct.Text = dttable_model.Rows[0]["Product_Name"].ToString();
-                txtProductmanager.Text = dttable_model.Rows[0]["Product_ManagerName"].ToString();
-                txtcodecustomer.Text= dttable_model.Rows[0]["Code_productcustomer"].ToString();
-                txtQuantity.Focus();
-                dtgvResult.DataSource = null;
+                var data = db.Nichicon_model.FirstOrDefault(x => x.ID == selectcbb);
+                if(data!= null)
+                {
+
+                    Connect();
+                    command = new SqlCommand("Select * from Nichicon_model where ID='" + selectcbb + "'", connect);
+                    adapter_model = new SqlDataAdapter(command);
+                    dttable_model = new DataTable();
+                    adapter_model.Fill(dttable_model);
+                    txtProduct.Text = dttable_model.Rows[0]["Product_Name"].ToString();
+                    txtProductmanager.Text = dttable_model.Rows[0]["Product_ManagerName"].ToString();
+                    txtcodecustomer.Text = dttable_model.Rows[0]["Code_productcustomer"].ToString();
+                    txtQuantity.Focus();
+                    dtgvResult.DataSource = null;
+                }
+               
             }
             else
             {
                 txtProduct.ResetText();
                 txtProductmanager.ResetText();
+                txtcodecustomer.ResetText();
             }
 
         }
@@ -204,43 +211,21 @@ namespace Nichicon_PrintLabel
             cboMonth.DataSource = months;
             cboMonth.SelectedItem = now.Month.ToString();
         }
-
-        private void txtQuantity_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (txtQuantity.Text != "")
-            {
-                if (FieldError(txtQuantity) == true)
-                {
-                    double qty = double.Parse(txtQuantity.Text);
-                    if (qty > 2600001)
-                    {
-                        label9.Visible = true;
-                        label9.Text = "Value max of quantity is 260000";
-                    }
-                }
-            }
-            else
-            {
-                label9.Visible = true;
-                label9.Text = "Value cannot be empty!";
-            }
-        }
-
          bool Check_value()
         {
           bool ok = false;
             int qty = 0;
-            if (cboModels.SelectedIndex < 1 && !int.TryParse(txtQuantity.Text, out qty))
+            if (cboModels.SelectedIndex < 0 && !int.TryParse(txtQuantity.Text, out qty))
             {
                 MessageBox.Show($"Model và số lượng không được để trống", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return ok = true;
             }
-            else if (cboModels.SelectedIndex < 1)
+            else if (cboModels.SelectedIndex < 0)
             {
                 MessageBox.Show($"Model chưa được chọn", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return ok = true;
             }
-            else if (!int.TryParse(txtQuantity.Text, out qty))
+            if (!int.TryParse(txtQuantity.Text, out qty))
             {
                 MessageBox.Show($"Số lượng không hợp lệ", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return ok = true;
@@ -254,12 +239,11 @@ namespace Nichicon_PrintLabel
                 string startNo;
                 string month = cboMonth.Text;
                 string model = cboModels.Text;
-
                 Nichicon_model model_item = (NichiconRepository.GetModel(model));
                 Nichicon_ItemSeiral1 nichiconItem = NichiconRepository.GetLastSerial1(model);
                 startNo = nichiconItem == null ? "A0000" : nichiconItem.BarCode_Last.Substring(nichiconItem.BarCode_Last.Length - 6, 5);
                 histories = Ultils.GenericSerial1(model_item, startNo, int.Parse(txtQuantity.Text), _dic, month);
-                dtgvResult.DataSource = histories.ToList();
+                dtgvResult.DataSource = histories;
                 dtgvResult.Columns["ID"].Visible = false;
                 dtgvResult.Columns["Country"].Visible = false;
             }            
@@ -430,26 +414,18 @@ namespace Nichicon_PrintLabel
                 string startNo;
                 string month = cboMonth.Text;
                 string model = cboModels.Text;
-                if (cboModels.SelectedIndex < 1)
-                {
-                    MessageBox.Show($"Model chưa được chọn", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                int qty = 0;
-                if (!int.TryParse(txtQuantity.Text, out qty))
-                {
-                    MessageBox.Show($"Số lượng không hợp lệ", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
                 Nichicon_model model_item = (NichiconRepository.GetModel(model));
                 Nichicon_ItemSerial2 nichiconItem = NichiconRepository.GetLastSerial2(model);
                 startNo = nichiconItem == null ? "A0000" : nichiconItem.BarCode_Last.Substring(nichiconItem.BarCode_Last.Length - 5, 5);
                 histories2 = Ultils.GenericSerial2(model_item, startNo, int.Parse(txtQuantity.Text), _dic, month);
-                dtgvResult.DataSource = histories2.ToList();
-                dtgvResult.Columns["ID"].Visible = false;
-                dtgvResult.Columns["Model"].Visible = false;
-                dtgvResult.Columns["Product_Name"].Visible = false;
-                dtgvResult.Columns["Code_productcustomer"].Visible = false;
+                this.Enabled = false;
+
+                BindingSource source = new BindingSource();
+                source.DataSource = histories2;
+                dtgvResult.DataSource = source;
+                dtgvResult.Columns["ID"].Visible= false;
+                this.Enabled = true;
+               
             }
         }
     }

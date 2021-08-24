@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblName = new System.Windows.Forms.Label();
             this.lbltime = new System.Windows.Forms.Label();
@@ -38,6 +37,9 @@
             this.bunifuCustomLabel1 = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtcodecustomer = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.btnGenerateSerial2 = new System.Windows.Forms.Button();
             this.btnAddUser = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.txtProductmanager = new System.Windows.Forms.TextBox();
@@ -71,9 +73,6 @@
             this.lblVersion = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.dtgvResult = new System.Windows.Forms.DataGridView();
-            this.btnGenerateSerial2 = new System.Windows.Forms.Button();
-            this.txtcodecustomer = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -186,6 +185,38 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Options";
+            // 
+            // txtcodecustomer
+            // 
+            this.txtcodecustomer.Enabled = false;
+            this.txtcodecustomer.Location = new System.Drawing.Point(336, 93);
+            this.txtcodecustomer.Name = "txtcodecustomer";
+            this.txtcodecustomer.Size = new System.Drawing.Size(113, 20);
+            this.txtcodecustomer.TabIndex = 49;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(197, 97);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(122, 13);
+            this.label10.TabIndex = 48;
+            this.label10.Text = "Code manager customer";
+            // 
+            // btnGenerateSerial2
+            // 
+            this.btnGenerateSerial2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGenerateSerial2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnGenerateSerial2.Image = global::Nichicon_PrintLabel.Properties.Resources._4137161_building_construction_industry_setting_icon__2_;
+            this.btnGenerateSerial2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGenerateSerial2.Location = new System.Drawing.Point(515, 55);
+            this.btnGenerateSerial2.Name = "btnGenerateSerial2";
+            this.btnGenerateSerial2.Size = new System.Drawing.Size(138, 40);
+            this.btnGenerateSerial2.TabIndex = 47;
+            this.btnGenerateSerial2.Text = "Generate Serial 2";
+            this.btnGenerateSerial2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGenerateSerial2.UseVisualStyleBackColor = true;
+            this.btnGenerateSerial2.Click += new System.EventHandler(this.btnGenerateSerial2_Click);
             // 
             // btnAddUser
             // 
@@ -368,7 +399,6 @@
             this.txtQuantity.Size = new System.Drawing.Size(113, 20);
             this.txtQuantity.TabIndex = 30;
             this.txtQuantity.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtQuantity_KeyPress);
-            this.txtQuantity.Validating += new System.ComponentModel.CancelEventHandler(this.txtQuantity_Validating);
             // 
             // label3
             // 
@@ -489,54 +519,15 @@
             // 
             // dtgvResult
             // 
+            this.dtgvResult.AllowUserToAddRows = false;
             this.dtgvResult.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvResult.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dtgvResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgvResult.Location = new System.Drawing.Point(4, 228);
+            this.dtgvResult.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dtgvResult.Location = new System.Drawing.Point(0, 228);
             this.dtgvResult.Name = "dtgvResult";
             this.dtgvResult.RowHeadersVisible = false;
-            this.dtgvResult.Size = new System.Drawing.Size(758, 270);
+            this.dtgvResult.Size = new System.Drawing.Size(767, 273);
             this.dtgvResult.TabIndex = 109;
-            this.dtgvResult.VirtualMode = true;
-            // 
-            // btnGenerateSerial2
-            // 
-            this.btnGenerateSerial2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerateSerial2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnGenerateSerial2.Image = global::Nichicon_PrintLabel.Properties.Resources._4137161_building_construction_industry_setting_icon__2_;
-            this.btnGenerateSerial2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGenerateSerial2.Location = new System.Drawing.Point(515, 55);
-            this.btnGenerateSerial2.Name = "btnGenerateSerial2";
-            this.btnGenerateSerial2.Size = new System.Drawing.Size(138, 40);
-            this.btnGenerateSerial2.TabIndex = 47;
-            this.btnGenerateSerial2.Text = "Generate Serial 2";
-            this.btnGenerateSerial2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGenerateSerial2.UseVisualStyleBackColor = true;
-            this.btnGenerateSerial2.Click += new System.EventHandler(this.btnGenerateSerial2_Click);
-            // 
-            // txtcodecustomer
-            // 
-            this.txtcodecustomer.Enabled = false;
-            this.txtcodecustomer.Location = new System.Drawing.Point(336, 93);
-            this.txtcodecustomer.Name = "txtcodecustomer";
-            this.txtcodecustomer.Size = new System.Drawing.Size(113, 20);
-            this.txtcodecustomer.TabIndex = 49;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(197, 97);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(122, 13);
-            this.label10.TabIndex = 48;
-            this.label10.Text = "Code manager customer";
             // 
             // FormMain
             // 
@@ -604,13 +595,13 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lbltime;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.DataGridView dtgvResult;
         public System.Windows.Forms.ComboBox cboModels;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnAddUser;
         private System.Windows.Forms.Button btnGenerateSerial2;
         private System.Windows.Forms.TextBox txtcodecustomer;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.DataGridView dtgvResult;
     }
 }
 

@@ -10,17 +10,18 @@ namespace Nichicon_PrintLabel.DAL
     {
         
         public int ID { get; set; }
-
-        [StringLength(50)]
         public string QR_Code { get; set; }
-        [StringLength(50)]
         public string Model { get; set; }
-        [StringLength(50)]
         public string Product_Name { get; set; }
-        [StringLength(50)]
         public string Code_productcustomer { get; set; }
-
-        [StringLength(50)]
+        public string Product_Customer { get; set; }
+    }
+    public class HistoryEntity
+    {
+        public string QR_Code { get; set; }
+        public string Model { get; set; }
+        public string Product_Name { get; set; }
+        public string Code_productcustomer { get; set; }
         public string Product_Customer { get; set; }
     }
 }

@@ -21,7 +21,7 @@ namespace Nichicon_PrintLabel.Business
         {
             using (DataContext context = new DataContext())
             {
-                return context.Nichicon_model.Where(c=>c.Model_Name==model).SingleOrDefault();
+                return context.Nichicon_model.FirstOrDefault(r => r.Model_Name == model);
             }
         }
         public static bool SaveHistoryOfSerial1(Nichicon_ItemSeiral1 item, List<Nichicon_HistoriesSerial1> histories)
